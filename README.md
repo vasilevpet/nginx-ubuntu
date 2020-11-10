@@ -1,1 +1,1 @@
-# my-repo
+# nginx-ubuntu
