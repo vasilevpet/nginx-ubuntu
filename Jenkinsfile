@@ -1,6 +1,12 @@
 pipeline {
 
-    agent { label 'docker' }
+    agent {
+        docker {
+            image 'dockeradmin01/ubuntu-test:v2'
+            label 'docker'
+            args  '-v /home/vagrant/docker-projects/tmp:/tmp --name=my-ubuntu'
+        }
+    }
 
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
