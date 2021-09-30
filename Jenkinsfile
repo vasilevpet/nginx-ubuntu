@@ -28,7 +28,7 @@ pipeline {
             steps {         
                 sh '''
                      echo Push the Docker image to artifactory
-                     jfrog rt upload --url http://192.168.99.101:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} my-docker-image:${TAG} example-repo-local/
+                     jfrog rt upload --url http://192.168.99.101:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} my-docker-image example-repo-local/
                    ''' 
             }    
         }
