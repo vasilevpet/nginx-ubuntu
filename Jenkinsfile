@@ -22,16 +22,6 @@ pipeline {
                 echo "Start testing the Docker image into container"
                 sh 'docker run --rm --name=my-container my-docker-image:v1 echo "Testing from $(hostname)"'
             }
-        }
-
-        stage('Push') {
-            steps {
-                
-                sh '''
-                     echo "Push the Docker image to artifactory"
-                     curl -u ${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW} -T my-docker-image:${TAG} http://192.168.99.101:8082/artifactory/test-docker-local/my-docker-image-${TAG}
-                   ''' 
-            }
-        }        
+        }       
     }
 }
