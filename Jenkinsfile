@@ -19,7 +19,7 @@ pipeline {
         
          stage('Archive-artefacts') {
             steps {
-                archiveArtifacts artifacts: '*', fingerprint: true
+                archiveArtifacts artifacts: '*.-image-*', fingerprint: true
             }
         }
 
