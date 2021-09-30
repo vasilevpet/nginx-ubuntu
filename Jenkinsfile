@@ -16,6 +16,12 @@ pipeline {
                 sh 'docker build -t my-docker-image-${TAG} .'
             }
         }
+        
+         stage('Archive-artefacts') {
+            steps {
+                archiveArtifacts artifacts: '*my-docker-image-${TAG}', fingerprint: true
+            }
+        }
 
         stage('Push') {
             steps {
