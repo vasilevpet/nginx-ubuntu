@@ -6,7 +6,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     environment {
-        TAG = ''
         ARTIFACTORY_CREDS = credentials('artifactory-creds')
     }
 
@@ -36,4 +35,4 @@ pipeline {
                '''
         }
     }
-}  
+}   
