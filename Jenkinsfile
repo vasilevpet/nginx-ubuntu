@@ -1,42 +1,23 @@
 pipeline {
-    agent {
-        dockerfile {
-            label 'docker'
-            args  '-v /home/vagrant/docker-projects/tmp:/tmp --name=my-ubuntu'
-        }
+
+    agent { label 'docker' }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        stage("Build") {
+        stage('Build') {
             steps {
-               sh 'echo "Today is $(date)" > /tmp/day.txt'
-               sh 'uptime > /tmp/uptime.txt'
+                echo "Start building the Docker image"
+                sh 'docker build -t my-docker-image:${TAG} .'
             }
-
         }
-        stage("Test") {
-            steps {
-               sh 'ls -l /tmp'    
-               sh 'cat /tmp/day.txt'
-            }
 
-        }
-        stage("Deply") {
+        stage('Test') {
             steps {
-               sh '''
-                    cd /tmp
-                    hostname
-                    uname -a
-                    cat /etc/os-release
-                    df -h
-                    mv /tmp/day.txt /tmp/day-time-${BUILD_NUMBER}.txt
-                    mv /tmp/uptime.txt /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/day-time-${BUILD_NUMBER}.txt
-                    ls -lrt
-                  '''
+                echo "Start testing the Docker image into container"
+                sh 'docker run --rm --name=my-container my-docker-image:v1 echo "Testing from $(hostname)"'
             }
-
-        }      
+        }     
     }
-
-}
+}  
