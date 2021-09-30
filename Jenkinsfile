@@ -19,7 +19,7 @@ pipeline {
         
          stage('Archive-artefacts') {
             steps {
-                archiveArtifacts artifacts: '*my-docker-image-${TAG}', fingerprint: true
+                archiveArtifacts artifacts: '*', fingerprint: true
             }
         }
 
