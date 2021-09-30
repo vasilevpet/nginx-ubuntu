@@ -6,7 +6,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     environment {
-        ARTIFACTORY_CREDS = credentials('artifactory-creds')
+        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
     }
 
     stages {
