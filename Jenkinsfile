@@ -20,7 +20,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Start testing the Docker image into container"
-                sh 'docker run -ti --rm --name=my-container my-docker-image:${TAG} bash'
+                sh 'docker run -ti --rm --name=my-container my-docker-image:v1 echo "Testing from $(hostname)"'
             }
         }
 
@@ -34,4 +34,4 @@ pipeline {
             }
         }        
     }
-}    
+}
