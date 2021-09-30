@@ -29,7 +29,7 @@ pipeline {
         }        
     }
     post {
-        faulure {
+        failure {
             sh '''
                 echo "******Removing generated image: my-docker-image-${TAG} !!!******"
                 docker image rmi -f my-docker-image-${TAG}
