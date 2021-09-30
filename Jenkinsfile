@@ -22,17 +22,9 @@ pipeline {
                 
                 sh '''
                      echo "Push the Docker image to artifactory"
-                     curl -u ${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW} -T my-docker-image:${TAG} http://192.168.99.101:8082/artifactory/test-generic-local/my-docker-image-${TAG}
+                     curl -u ${ARTIFACTORY_CREDS_USR}:${ARTIFACTORY_CREDS_PSW} -T my-docker-image:${TAG} http://192.168.99.101:8082/artifactory/test-docker-local/my-docker-image-${TAG}
                    ''' 
             }
         }        
     }
-    post {
-        failure {
-            sh '''
-                echo "******Removing generated image: my-docker-image-${TAG} !!!******"
-                docker image rmi -f my-docker-image-${TAG}
-               '''
-        }
-    }
-}  
+}    
