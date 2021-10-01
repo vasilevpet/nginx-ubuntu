@@ -9,7 +9,7 @@ pipeline {
     }
     
     environment {
-        TAG = "${params.TAGn}"
+        TAG = "${params.TAG}"
     }
     
     stages {
@@ -19,7 +19,7 @@ pipeline {
                 ok "Put a TAG"
                 submitter "Jenkins"
                 parameters {
-                    string(name: 'TAGn', defaultValue: 'R10', description: 'Release TAG for Builds')
+                    string(name: 'TAG', defaultValue: 'R10', description: 'Release TAG for Builds')
                 }
              }   
             steps {
