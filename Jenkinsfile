@@ -27,7 +27,7 @@ pipeline {
             steps {
                 echo "Start testing the Docker image into container"
                 sh '''
-                    docker run --rm --name=my-con my-docker-image:$(TAG) bash -c 'echo "Testing from $(hostname)"'
+                    docker run --rm --name=my-con my-docker-image:$($TAG) bash -c 'echo "Testing from $(hostname)"'
                    '''
             }
         }     
