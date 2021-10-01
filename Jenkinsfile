@@ -16,6 +16,7 @@ pipeline {
                 parameters {
                     string(name: 'TAG', defaultValue: 'R10', description: 'Release TAG for Builds')
                 }
+             }   
             steps {
                 echo "Start building the Docker image"
                 sh 'docker build -t my-docker-image:${TAG} .'
@@ -29,4 +30,4 @@ pipeline {
             }
         }     
     }
-}  
+}
