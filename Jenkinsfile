@@ -5,7 +5,7 @@ pipeline {
     }
        
     options {
-        buildDiscarder(logRotator(numToKeepStr: '7'))
+        buildDiscarder(logRotator(numToKeepStr: '8'))
     }
     stages {
         stage('Build') {
@@ -19,14 +19,14 @@ pipeline {
              }   
             steps {
                 echo "Start building the Docker image"
-                sh 'docker build -t my-docker-image:$TAG .'
+                sh 'docker build -t my-docker-image:${TAG} .'
             }
         }
 
         stage('Test') {
             steps {
                 echo "Start testing the Docker image into container"
-                sh 'docker run --rm --name=my-container my-docker-image:$TAG echo "Testing from $(hostname)"'
+                sh 'docker run --rm --name=my-container my-docker-image:${TAG} echo "Testing from $(hostname)"'
             }
         }     
     }
