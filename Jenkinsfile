@@ -3,16 +3,19 @@ pipeline {
     agent {
         label 'docker'
     }
-    
-    parameters { 
-        string(name: 'TAG', defaultValue: 'R10', description: 'Release Tag for Builds') 
-    }
-    
+       
     options {
         buildDiscarder(logRotator(numToKeepStr: '6'))
     }
     stages {
         stage('Build') {
+            input {
+                message "Please provide a Release TAG?"
+                ok "Put a TAG"
+                submitter "Jenkins"
+                parameters {
+                    string(name: 'TAG', defaultValue: 'R10', description: 'Release TAG for Builds')
+                }
             steps {
                 echo "Start building the Docker image"
                 sh 'docker build -t my-docker-image:${TAG} .'
