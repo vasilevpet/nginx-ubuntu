@@ -1,42 +1,42 @@
 pipeline {
-    agent {
-        dockerfile {
-            label 'docker'
-            args  '-v /home/vagrant/docker-projects/tmp:/tmp --name=my-ubuntu'
-        }
+    agent { 
+        label 'docker'
     }
+    
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    environment {
+        CI = true
+        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+    }
+    
     stages {
-        stage("Build") {
+        stage('Build') {
             steps {
-               sh 'echo "Today is $(date)" > /tmp/day.txt'
-               sh 'uptime > /tmp/uptime.txt'
+                echo "Start building the artifact: generatedFile-${BUILD_NUMBER}.txt"
+                sh 'echo "Current Build number is ${BUILD_NUMBER}" > generatedFile-${BUILD_NUMBER}.txt'
             }
-
         }
-        stage("Test") {
-            steps {
-               sh 'ls -l /tmp'    
-               sh 'cat /tmp/day.txt'
-            }
 
+        stage('Archive-artefacts') {
+
+            steps {
+                archiveArtifacts artifacts: '*.txt', fingerprint: true
+            }
         }
-        stage("Deply") {
-            steps {
-               sh '''
-                    cd /tmp
-                    hostname
-                    uname -a
-                    cat /etc/os-release
-                    df -h
-                    mv /tmp/day.txt /tmp/day-time-${BUILD_NUMBER}.txt
-                    mv /tmp/uptime.txt /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/day-time-${BUILD_NUMBER}.txt
-                    ls -lrt
-                  '''
+    
+        stage('Upload to Artifactory') {
+            agent {
+                docker {
+                image 'releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0' 
+                label 'docker'
+                reuseNode true
             }
-
-        }      
+        }
+            steps {
+                sh 'jfrog rt upload --url http://192.168.99.101:8082/artifactory/ --access-token $ARTIFACTORY_ACCESS_TOKEN generatedFile-${BUILD_NUMBER}.txt example-repo-local/'
+            }
+        }
     }
-
-}
+}  
