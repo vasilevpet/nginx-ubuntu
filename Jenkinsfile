@@ -7,6 +7,11 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '8'))
     }
+    
+    environment {
+        TAG = ${params.TAGn}
+    }
+    
     stages {
         stage('Build') {
             input {
@@ -14,7 +19,7 @@ pipeline {
                 ok "Put a TAG"
                 submitter "Jenkins"
                 parameters {
-                    string(name: 'TAG', defaultValue: 'R10', description: 'Release TAG for Builds')
+                    string(name: 'TAGn', defaultValue: 'R10', description: 'Release TAG for Builds')
                 }
              }   
             steps {
@@ -27,7 +32,7 @@ pipeline {
             steps {
                 echo "Start testing the Docker image into container"
                 sh '''
-                    docker run --rm --name=my-con my-docker-image:$($TAG) bash -c 'echo "Testing from $(hostname)"'
+                    docker run --rm --name=my-con my-docker-image:${TAG} bash -c 'echo "Testing from $(hostname)"'
                    '''
             }
         }     
