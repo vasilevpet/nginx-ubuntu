@@ -4,8 +4,8 @@ pipeline {
         label 'docker'
     }
     
-    environment {
-        TAG = 'R10'
+    parameters { 
+        string(name: 'TAG', defaultValue: 'R10', description: 'Release Tag for Builds') 
     }
     
     options {
