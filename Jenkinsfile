@@ -15,7 +15,7 @@ pipeline {
         }
         stage("Test") {
             steps {
-               sh 'ls -l /tmp'    
+               sh 'ls -la /tmp'    
                sh 'cat /tmp/day.txt'
             }
 
