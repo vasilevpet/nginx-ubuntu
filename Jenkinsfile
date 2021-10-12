@@ -8,9 +8,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     
-    ///environment {
-    ///    TAG = "${params.TAGn}"
-    ///}
+    //environment {
+    //    TAG = "${params.TAGn}"
+    //}
     
     stages {
         stage('Build') {
