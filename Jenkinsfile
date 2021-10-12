@@ -23,7 +23,7 @@ pipeline {
                 }
              }   
             steps {
-                echo "Start building the Docker image"
+                echo "Start building the Docker image with ${TAG}"
                 sh 'docker build -t my-docker-image:${TAG} .'
             }
         }
