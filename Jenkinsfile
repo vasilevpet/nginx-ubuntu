@@ -15,6 +15,7 @@ pipeline {
     stages {
         stage('Build') {
             input {
+                id "Provide a Release TAG"
                 message "Please provide a Release TAG?"
                 ok "Put a TAG"
                 submitter "Jenkins"
