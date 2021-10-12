@@ -9,7 +9,7 @@ pipeline {
     }
     
     environment {
-        TAG = "${TAGn}"
+        TAG = "${params.TAGn}"
     }
     
     stages {
