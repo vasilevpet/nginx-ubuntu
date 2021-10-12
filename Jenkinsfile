@@ -8,9 +8,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     
-    environment {
-        TAG = "${params.TAGn}"
-    }
+    #environment {
+    #    TAG = "${params.TAGn}"
+    #}
     
     stages {
         stage('Build') {
@@ -20,7 +20,7 @@ pipeline {
                 ok "Put a TAG"
                 submitter "Jenkins"
                 parameters {
-                    string(name: 'TAGn', defaultValue: 'R10', description: 'Release TAG for Builds')
+                    string(name: 'TAG', defaultValue: 'R10', description: 'Release TAG for Builds')
                 }
              }   
             steps {
