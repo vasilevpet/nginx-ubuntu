@@ -7,7 +7,11 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
-       
+    
+    environment {
+        TAG = ${TAG}
+    }
+    
     stages {
         stage('Build') {
             input {
