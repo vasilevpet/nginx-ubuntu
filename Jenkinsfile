@@ -8,10 +8,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     
-    #environment {
-    #    TAG = "${params.TAGn}"
-    #}
-    
+  
     stages {
         stage('Build') {
             input {
@@ -32,13 +29,5 @@ pipeline {
             }   
         }
 
-        #stage('Test') {
-        #    steps {
-        #        echo "Start testing the Docker image into container"
-        #        sh '''
-        #            docker run --rm --name=my-con my-docker-image:${TAGn} bash -c 'echo "Testing from $(hostname)"'
-        #           '''
-        #   }
-        #}     
     }
 }
