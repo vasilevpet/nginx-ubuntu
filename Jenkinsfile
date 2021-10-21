@@ -9,7 +9,7 @@ pipeline {
     }
     
     environment {
-        TAG = "${params.TAG}"
+        TAG = "${params.TAGn}"
     }
     
     stages {
@@ -20,12 +20,12 @@ pipeline {
                 ok "Put a TAG"
                 submitter "Jenkins"
                 parameters {
-                    string(name: 'TAG', defaultValue: 'R10', description: 'Release TAG for Builds')
+                    string(name: 'TAGn', defaultValue: 'R10', description: 'Release TAG for Builds')
                 }
              }   
             steps {
-                echo "Start building the Docker image with ${TAG}"
-                sh 'docker build -t my-docker-image:${TAG} .'
+                echo "Start building the Docker image with ${TAGn}"
+                sh 'docker build -t my-docker-image:${TAGn} .'
             }
         }
 
