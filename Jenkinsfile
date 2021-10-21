@@ -1,33 +1,42 @@
 pipeline {
-
     agent {
-        label 'docker'
+        label 'slave'
     }
-       
+    tools {
+        maven '3.8.2'
+    }
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk'
+        //JAVA_HOME = '/opt/java/openjdk'
+        CI = true
+        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
+    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
-    
-  
     stages {
-        stage('Build') {
-            input {
-                id "Provide a Release TAG"
-                message "Please provide a Release TAG?"
-                ok "Put a TAG"
-                submitter "Jenkins"
-                parameters {
-                    string(name: 'TAGn', defaultValue: 'R10', description: 'Release TAG for Builds')
-                }
-             }   
+        stage('Maven-check') {
             steps {
-                echo "Start building the Docker image with ${TAGn}"
-                sh 'docker build -t my-docker-image:${TAGn} .'
-                sh '''
-                    docker run --rm --name=my-con my-docker-image:${TAGn} bash -c 'echo "Testing from $(hostname)"'
-                   ''' 
-            }   
+                sh 'mvn --version'
+                sh 'java -version'
+            }
         }
-
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }        
+        }
+        //stage('Upload to Artifactory') {
+        //    agent {
+        //        docker {
+        //       image 'releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0' 
+        //        label 'docker'
+        //        reuseNode true
+        //    }
+        //}
+        //    steps {
+        //        sh 'jfrog rt upload --url http://192.168.99.101:8082/artifactory/ --access-token $ARTIFACTORY_ACCESS_TOKEN target/demo-0.0.1-SNAPSHOT.jar java-web-app/'
+        //    }
+        //}        
     }
 }
