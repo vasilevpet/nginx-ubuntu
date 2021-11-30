@@ -3,7 +3,7 @@ pipeline {
         label 'docker'
     }
     environment {
-        DEPLOY_TO = 'production'
+        DEPLOY_TO = 'staging'
     }
     stages {
         stage('Example Build') {
