@@ -1,42 +1,27 @@
 pipeline {
     agent {
-        dockerfile {
-            label 'docker'
-            args  '-v /home/vagrant/docker-projects/tmp:/tmp --name=my-ubuntu'
-        }
+        label 'docker'
+    }
+    environment {
+        DEPLOY_TO = 'production'
     }
     stages {
-        stage("Build") {
+        stage('Example Build') {
             steps {
-               sh 'echo "Today is $(date)" > /tmp/day.txt'
-               sh 'uptime > /tmp/uptime.txt'
+                echo 'Hello World'
             }
-
         }
-        stage("Test") {
-            steps {
-               sh 'ls -la /tmp'    
-               sh 'cat /tmp/day.txt'
+        stage('Example Deploy') {
+            when {
+                branch 'test'
+                anyOf {
+                    environment name: 'DEPLOY_TO', value: 'production'
+                    environment name: 'DEPLOY_TO', value: 'staging'
+                }
             }
-
+            steps {
+                echo "Deploying to ${env.DEPLOY_TO}"
+            }
         }
-        stage("Deply") {
-            steps {
-               sh '''
-                    cd /tmp
-                    hostname
-                    uname -a
-                    cat /etc/os-release
-                    df -h
-                    mv /tmp/day.txt /tmp/day-time-${BUILD_NUMBER}.txt
-                    mv /tmp/uptime.txt /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/day-time-${BUILD_NUMBER}.txt
-                    ls -lrt
-                  '''
-            }
-
-        }      
     }
-
 }
