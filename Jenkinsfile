@@ -15,7 +15,7 @@ pipeline {
                 id "Provide a Release TAG"
                 message "Please provide a Release TAG?"
                 ok "Put a TAG"
-                submitter "Jenkins"
+                submitter "Jenkins Admin"
                 parameters {
                     string(name: 'TAGn', defaultValue: 'R10', description: 'Release TAG for Builds')
                 }
