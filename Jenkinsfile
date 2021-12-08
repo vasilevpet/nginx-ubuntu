@@ -6,7 +6,7 @@ pipeline {
         maven '3.8.2'
     }
     environment {
-        JAVA_HOME = '/opt/java/openjdk/bin/java'
+        //JAVA_HOME = '/opt/java/openjdk/bin/java'
         //JAVA_HOME = '/opt/java/openjdk'
         CI = true
         ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-token')
