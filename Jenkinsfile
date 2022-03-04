@@ -36,10 +36,10 @@ pipeline {
                 sh 'echo ${DOCKER_HUB_CREDS} | docker login -u dockeradmin01 --password-stdin'
             }
         }
-    post {
-        always {
-            sh 'docker images'
-        }
-    }    
+    // post {
+    //     always {
+    //         sh 'docker images'
+    //     }
+    // }    
     }
 }
