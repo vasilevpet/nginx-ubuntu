@@ -8,6 +8,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     
+    environment {
+        DOCKER_HUB_CREDS = credentials('docker-hub-token-jenkins')
+    }
   
     stages {
         stage('Build') {
@@ -28,6 +31,15 @@ pipeline {
                    ''' 
             }   
         }
-
+        stage('Push to Docker Hub') {
+            steps {
+                sh 'echo ${DOCKER_HUB_CREDS} | docker login -u dockeradmin01 --password-stdin'
+            }
+        }
+    post {
+        always {
+            sh 'docker images'
+        }
+    }    
     }
 }
