@@ -31,13 +31,19 @@ pipeline {
                    ''' 
             }   
         }
-        stage('Push to Docker Hub') {
+        stage('login to Docker Hub') {
             steps {
                 sh 'echo ${DOCKER_HUB_CREDS} | docker login -u dockeradmin01 --password-stdin'
             }
         }
+        stage('Push to Docker Hub') {
+            steps {
+                sh 'docker push dockeradmin01/my-docker-image:${TAGn}' 
+            }
+        }
     // post {
     //     always {
+    //         sh 'docker images'
     //         sh 'docker images'
     //     }
     // }    
