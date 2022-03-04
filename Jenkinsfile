@@ -27,7 +27,7 @@ pipeline {
                 echo "Start building the Docker image with ${TAGn}"
                 sh 'docker build -t dockeradmin01/my-docker-image:${TAGn} .'
                 sh '''
-                    docker run --rm --name=my-con my-docker-image:${TAGn} bash -c 'echo "Testing from $(hostname)"'
+                    docker run --rm --name=my-con dockeradmin01/my-docker-image:${TAGn} bash -c 'echo "Testing from $(hostname)"'
                    ''' 
             }   
         }
