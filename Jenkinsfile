@@ -25,7 +25,7 @@ pipeline {
              }   
             steps {
                 echo "Start building the Docker image with ${TAGn}"
-                sh 'docker build -t my-docker-image:${TAGn} .'
+                sh 'docker build -t dockeradmin01/my-docker-image:${TAGn} .'
                 sh '''
                     docker run --rm --name=my-con my-docker-image:${TAGn} bash -c 'echo "Testing from $(hostname)"'
                    ''' 
