@@ -18,7 +18,7 @@ pipeline {
                 sh 'echo ${DOCKER_HUB_CREDS} | docker login -u dockeradmin01 --password-stdin'
             }
         }
-        stage('Build') {
+        stage('Build and Push to Docker Hub') {
             input {
                 id "Provide a Release TAG"
                 message "Please provide a Release TAG?"
