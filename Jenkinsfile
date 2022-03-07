@@ -35,13 +35,13 @@ pipeline {
                     docker run --rm --name=my-con dockeradmin01/my-docker-image:${TAGn} bash -c 'echo "Testing from $(hostname)"'
                    ''' 
             }   
-        }
-    }    
+        }    
         stage('Push to Docker Hub') {
             steps {
                 sh 'docker push dockeradmin01/my-docker-image:${TAGn}' 
             }
         }
+    }    
     post {
         always {
             sh 'docker images'
