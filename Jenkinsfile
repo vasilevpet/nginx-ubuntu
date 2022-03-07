@@ -36,6 +36,7 @@ pipeline {
                    ''' 
             }   
         }
+    }    
         stage('Push to Docker Hub') {
             steps {
                 sh 'docker push dockeradmin01/my-docker-image:${TAGn}' 
