@@ -39,6 +39,7 @@ pipeline {
                         echo "Branch name is ${branchName}"
                     }
                 }
+            }
         }
     }    
     post {
