@@ -16,6 +16,11 @@ pipeline {
            //defaultContainer 'shell'
        }
     }
+    options {
+       ansiColor('xterm')
+       preserveStashes(buildCount: 5)
+       timestamps()
+    }
     stages {
         stage('Main') {
             steps {
