@@ -1,42 +1,51 @@
+def branchName = env.GIT_BRANCH.replace('origin/', '')
+def test = "John" 
+def myLabel = "jenkins-k8s-agent-build-${UUID.randomUUID().toString()}"
+
 pipeline {
     agent {
-        dockerfile {
-            label 'docker'
-            args  '-v /home/vagrant/docker-projects/tmp:/tmp --name=my-ubuntu'
-        }
+       kubernetes {
+           cloud 'kubernetes'
+           label "${myLabel}"
+           containerTemplate {
+                name 'shell'
+                image 'ubuntu'
+                command 'sleep'
+                args 'infinity'
+           }
+           //defaultContainer 'shell'
+       }
     }
     stages {
-        stage("Build") {
+        stage('Main') {
             steps {
-               sh 'echo "Today is $(date)" > /tmp/day.txt'
-               sh 'uptime > /tmp/uptime.txt'
+                sh 'hostname && date'
+                sh 'cat /etc/os-release'
+                echo "Hello ${test}"
+                echo "Branch name is ${branchName}"
             }
-
         }
-        stage("Test") {
+        stage('Second') {
             steps {
-               sh 'ls -la /tmp'    
-               sh 'cat /tmp/day.txt'
+                container('shell') {
+                    sh 'id && groups'
+                    sh 'hostname && date'
+                    sh 'cat /etc/os-release'
+                    echo "Branch name is ${branchName}"
+                }
             }
-
         }
-        stage("Deply") {
-            steps {
-               sh '''
-                    cd /tmp
-                    hostname
-                    uname -a
-                    cat /etc/os-release
-                    df -h
-                    mv /tmp/day.txt /tmp/day-time-${BUILD_NUMBER}.txt
-                    mv /tmp/uptime.txt /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/uptime-host-${BUILD_NUMBER}.txt
-                    cat /tmp/day-time-${BUILD_NUMBER}.txt
-                    ls -lrt
-                  '''
-            }
-
-        }      
-    }
-
+    }    
+    post {
+        always {
+            echo 'I will always say something!'
+        }
+        success {
+            echo 'I will say something only on SUCCESS!'
+            
+        }
+        failure {
+            echo 'I will say something only on FAILURE!'
+        }
+    }    
 }
