@@ -1,4 +1,4 @@
-def branchName = env.GIT_BRANCH.replace('origin/', '')
+def branchName
 def test = "John" 
 def myLabel = "jenkins-k8s-agent-build-${UUID.randomUUID().toString()}"
 
@@ -22,7 +22,10 @@ pipeline {
                 sh 'hostname && date'
                 sh 'cat /etc/os-release'
                 echo "Hello ${test}"
-                echo "Branch name is ${branchName}"
+                script {
+                    def branchName = env.GIT_BRANCH.replace('origin/', '')
+                    echo "Branch name is ${branchName}"
+                }
             }
         }
         stage('Second') {
@@ -31,9 +34,11 @@ pipeline {
                     sh 'id && groups'
                     sh 'hostname && date'
                     sh 'cat /etc/os-release'
-                    echo "Branch name is ${branchName}"
+                    script {
+                        def branchName = env.GIT_BRANCH.replace('origin/', '')
+                        echo "Branch name is ${branchName}"
+                    }
                 }
-            }
         }
     }    
     post {
