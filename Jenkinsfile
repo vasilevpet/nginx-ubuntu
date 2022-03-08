@@ -24,6 +24,7 @@ pipeline {
                 echo "Hello ${test}"
                 script {
                     branchName = env.GIT_BRANCH.replace('origin/', '')
+                    echo "${env.GIT_BRANCH}"
                     echo "Branch name is ${branchName}"
                 }
             }
@@ -36,6 +37,7 @@ pipeline {
                     sh 'cat /etc/os-release'
                     script {
                         branchName = env.GIT_BRANCH.replace('origin/', '')
+                        echo "${env.GIT_BRANCH}"
                         echo "Branch name is ${branchName}"
                     }
                 }
