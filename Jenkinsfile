@@ -19,7 +19,7 @@ pipeline {
     options {
        //ansiColor('xterm')
        preserveStashes(buildCount: 5)
-       timestamps()
+       //timestamps()
     }
     stages {
         stage('Main') {
