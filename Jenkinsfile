@@ -44,6 +44,9 @@ pipeline {
                         branchName = env.GIT_BRANCH.replace('origin/', '')
                         echo "${env.GIT_BRANCH}"
                         echo "Branch name is ${branchName}"
+                        ansiColor('xterm') {
+                            echo "Testing plugin ansiColor"
+                        }
                     }
                 }
             }
