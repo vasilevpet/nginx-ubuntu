@@ -4,7 +4,7 @@ def gender
 pipeline {
     agent any
     parameters {
-        string(name: 'NAME', description: 'Please tell me your name')
+        string(name: 'NAME', description: 'Please tell me your name', defaultValue: 'Vasilev')
         choice(name: 'GENDER', choices: ['Male', 'Female'], description: 'Choose Gender')
     }
     stages {
