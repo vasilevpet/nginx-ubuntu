@@ -1,27 +1,27 @@
 pipeline {
-    agent {
-        label 'docker'
-    }
-    environment {
-        DEPLOY_TO = 'staging'
+    agent any
+    parameters {
+        string(name: 'NAME', description: 'Please tell me your name')
+        choice(name: 'GENDER', choices: ['Male', 'Female'], description: 'Choose Gender')
     }
     stages {
-        stage('Example Build') {
+        stage('Printing name') {
             steps {
-                echo 'Hello World'
-            }
-        }
-        stage('Example Deploy') {
-            when {
-                branch 'test'
-                anyOf {
-                    environment name: 'DEPLOY_TO', value: 'production'
-                    environment name: 'DEPLOY_TO', value: 'staging'
+                script {
+                    def name = "${params.NAME}"
+                    def gender = "${params.GENDER}"
+                    if(gender == "Male") {
+                        echo "Mr. $name"    
+                    } else {
+                        echo "Mrs. $name"
+                    }
                 }
             }
+        }
+        stage('Printing name again') {
             steps {
-                echo "Deploying to ${env.DEPLOY_TO}"
+                echo "Hello ${name} welcome to our ${gender} club"
             }
         }
-    }
+   }
 }
