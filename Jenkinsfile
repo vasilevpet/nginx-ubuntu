@@ -21,7 +21,8 @@ pipeline {
                     //name = "${params.NAME}"
                     //gender = "${params.GENDER}"
                     if(gender == "Male") {
-                        echo "Mr. ${name}"    
+                        echo "Mr. ${name}"
+                        sh 'echo ${ll}'
                     } else {
                         echo "Mrs. ${name}"
                         sh 'echo ${ll}'
