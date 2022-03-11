@@ -1,5 +1,5 @@
-def name
-def gender
+// def name
+// def gender
 
 pipeline {
     agent any
