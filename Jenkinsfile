@@ -13,7 +13,7 @@ pipeline {
                 script {
                     name = "${params.NAME}"
                     gender = "${params.GENDER}"
-                    if(gender == "Male") {
+                    if($gender == "Male") {
                         echo "Mr. ${name}"    
                     } else {
                         echo "Mrs. ${name}"
