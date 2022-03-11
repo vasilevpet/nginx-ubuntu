@@ -12,7 +12,7 @@ pipeline {
         name = "${NAME}"
         gender = "${GENDER}"
         ll = sh (returnStdout: true, script: "ls -ltra").trim()
-        hostname = sh returnStdout: true, script: "hostname").trim()
+        hostname = sh (returnStdout: true, script: "hostname").trim()
     }      
     
     stages {
