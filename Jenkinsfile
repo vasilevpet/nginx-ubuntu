@@ -11,6 +11,7 @@ pipeline {
     environment {
         name = "${NAME}"
         gender = "${GENDER}"
+        ll = sh (returnStdout: true, script: "ls -ltra").trim()
     }      
     
     stages {
@@ -23,6 +24,7 @@ pipeline {
                         echo "Mr. ${name}"    
                     } else {
                         echo "Mrs. ${name}"
+                        sh 'echo ${ll}'
                     }
                 }
             }
@@ -30,6 +32,7 @@ pipeline {
         stage('Printing name again') {
             steps {
                 echo "Hello ${name} welcome to our ${gender} club"
+                sh 'echo ${ll}'
             }
         }
    }
