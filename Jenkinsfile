@@ -1,3 +1,6 @@
+def name
+def gender
+
 pipeline {
     agent any
     parameters {
@@ -8,12 +11,12 @@ pipeline {
         stage('Printing name') {
             steps {
                 script {
-                    def name = "${params.NAME}"
-                    def gender = "${params.GENDER}"
+                    name = "${params.NAME}"
+                    gender = "${params.GENDER}"
                     if(gender == "Male") {
-                        echo "Mr. $name"    
+                        echo "Mr. ${name}"    
                     } else {
-                        echo "Mrs. $name"
+                        echo "Mrs. ${name}"
                     }
                 }
             }
