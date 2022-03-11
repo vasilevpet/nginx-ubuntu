@@ -12,6 +12,7 @@ pipeline {
         name = "${NAME}"
         gender = "${GENDER}"
         ll = sh (returnStdout: true, script: "ls -ltra").trim()
+        hostname = sh returnStdout: true, script: "hostname").trim()
     }      
     
     stages {
@@ -33,7 +34,8 @@ pipeline {
         stage('Printing name again') {
             steps {
                 echo "Hello ${name} welcome to our ${gender} club"
-                sh 'echo ${ll}'
+                echo "${ll}"
+                echo "The hostname is ${hostname}"
             }
         }
    }
