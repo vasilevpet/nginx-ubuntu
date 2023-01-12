@@ -64,7 +64,8 @@ pipeline {
                     git branch
                     git status 
                     git commit -am "${params.commit}"
-                    git push ${params.product_branch}
+                    git status 
+                    // git push ${params.product_branch}
                 "
             }
         }
