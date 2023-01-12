@@ -56,7 +56,7 @@ pipeline {
         }
         stage('Commit and Publish') {
             steps {
-                sh "
+                sh """
                     // git checkout -b ${params.product_branch}
                     git config -l
                     git branch
@@ -64,7 +64,7 @@ pipeline {
                     git commit -am "${params.commit}"
                     git status 
                     // git push ${params.product_branch}
-                "
+                """
             }
         }
     }
