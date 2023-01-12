@@ -38,6 +38,7 @@ pipeline {
         stage('Get Manifest data') {
             steps {
                 dir("./product/${params.tla}/inventory") {
+                    sh "ls -ltr ${pwd()}"
                     script {
                         release = sh(returnStdout: true, script: "cat package.yml | awk '/release:/ {print \$2}'").trim
                         app_version = sh(returnStdout: true, script: "cat package.yml | awk '/application_version/ {print \$2}'").trim
