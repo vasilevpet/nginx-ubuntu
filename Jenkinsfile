@@ -43,7 +43,11 @@ pipeline {
                         release = sh(returnStdout: true, script: "awk -F: '/release:/ {print \$2}' package.yml").trim()
                         app_version = sh(returnStdout: true, script: "awk -F: '/application_version/ {print \$2}' package.yml").trim()
                         build = sh(returnStdout: true, script: "awk -F: '/build/ {print \$2}' package.yml").trim()
-                        sh "echo -e "release: $release\n app_version: $app_version\n build: $build"
+                        sh """
+                            echo release: $release 
+                            echo app_version: $app_version
+                            echo build: $build
+                        """
                     }    
                 }
             }
