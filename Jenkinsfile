@@ -31,7 +31,7 @@ pipeline {
         stage('Clone product config') {
             steps {
                 script {
-                    currentBuild.displayName = "${params.tla} - ${params.product_branch}-manifest"
+                    currentBuild.displayName = "${product_branch}/${params.tla} - ${params.product_branch}-manifest"
                 }
             }
         }
