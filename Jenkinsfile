@@ -60,7 +60,7 @@ pipeline {
                         new_app_version = sh(returnStdout: true, script: """sed -i "s|$app_version|${params.manifest_ver}|g" package.yml""").trim()
                         new_build = sh(returnStdout: true, script: """sed -i "7 s|$build|${params.build_num}|" package.yml""").trim()
                     }
-                    sh "sh "ls -ltr ${pwd()} && cat package.yml""
+                    sh "ls -ltr ${pwd()} && cat package.yml"
                 }
             }
         }
