@@ -40,7 +40,7 @@ pipeline {
                 dir("./product/${params.tla}/inventory") {
                     sh "ls -ltr ${pwd()} && cat package.yml"
                     script {
-                        release = sh(returnStdout: true, script: "awk -F: '/release/ {print \$2}' package.yml").trim()
+                        release = sh(returnStdout: true, script: "awk -F: '/release:/ {print \$2}' package.yml").trim()
                         app_version = sh(returnStdout: true, script: "awk -F: '/application_version/ {print \$2}' package.yml").trim()
                         build = sh(returnStdout: true, script: "awk -F: '/build/ {print \$2}' package.yml").trim()
                         echo "$release $app_version $build"
