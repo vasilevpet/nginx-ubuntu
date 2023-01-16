@@ -67,7 +67,9 @@ pipeline {
         stage('Commit and Publish') {
             steps {
                 sh """
-                    git config -l
+                    git config --global user.email "jenkins@example.com"
+                    git config --global user.name "jenkins"
+                    git checkout -b ${params.product_branch}
                     git branch
                     git status 
                     git commit -am "${params.commit}"
