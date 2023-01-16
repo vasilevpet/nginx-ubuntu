@@ -58,7 +58,7 @@ pipeline {
                     script {
                         new_release = sh(returnStdout: true, script: """sed -i "s|$release|${params.tla_ver}|g" package.yml""").trim()
                         new_app_version = sh(returnStdout: true, script: """sed -i "s|$app_version|${params.manifest_ver}|g2" package.yml""").trim()
-                        new_build = sh(returnStdout: true, script: """sed -i "s|$build|${params.build_num}|g" package.yml""").trim()
+                        new_build = sh(returnStdout: true, script: """sed -i "s|$build|${params.build_num}|3" package.yml""").trim()
                     }
                     sh "ls -ltr ${pwd()} && cat package.yml"
                 }
@@ -77,7 +77,6 @@ pipeline {
                     git status 
                     git commit -am "${params.commit}"
                     git status
-                    git push -u origin ${params.product_branch} 
                 """
             }
         }
@@ -85,7 +84,7 @@ pipeline {
 
     post {
         success {
-            echo "Manifest version was bumped to $tla-$new_release with build number $new_build"
+            echo "Manifest version was bumped to $tla-$tla_ver with build number $build_num"
         }
         always {
             cleanWs()
