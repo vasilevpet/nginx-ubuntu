@@ -52,9 +52,9 @@ pipeline {
             steps {
                 sh "ls -ltr ${pwd()}"
                 script {
-                    new_release = sh(returnStdout: true, script: 'sed -i "s|$release|${params.tla_ver}|g" package.yml').trim()
-                    new_app_version = sh(returnStdout: true, script: 'sed -i "s|$app_version|${params.manifest_ver}|g2" package.yml').trim()
-                    new_build = sh(returnStdout: true, script: 'sed -i "s|$build|${params.build_num}|g" package.yml').trim()
+                    new_release = sh(returnStdout: true, script: 'sed -i "s|"$release"|"${params.tla_ver}"|g" package.yml').trim()
+                    new_app_version = sh(returnStdout: true, script: 'sed -i "s|"$app_version"|"${params.manifest_ver}"|g2" package.yml').trim()
+                    new_build = sh(returnStdout: true, script: 'sed -i "s|"$build"|"${params.build_num}"|g" package.yml').trim()
                 }
             }
         }
