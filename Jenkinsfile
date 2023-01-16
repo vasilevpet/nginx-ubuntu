@@ -73,7 +73,8 @@ pipeline {
                     git branch
                     git status 
                     git commit -am "${params.commit}"
-                    git status 
+                    git status
+                    git push ${params.product_branch} 
                 """
             }
         }
