@@ -17,7 +17,7 @@ pipeline {
     parameters {
         string(name: 'tla', description: 'TLA to deploy, currently working for: sib,spb,fcq,sco,wlp,fbs,psa', defaultValue: 'tla')
         text(name: 'commit', description: 'Provide commit message', defaultValue: 'Manifest version was bumped to 1.0-2')
-        string(name: 'tla_ver', description: 'TLA version to bump for the manifest', defaultValue: '1.0-2')
+        string(name: 'tla_ver', description: 'TLA version to bump for the manifest in format "1.0-2"', defaultValue: '1.0-2')
         string(name: 'manifest_ver', description: 'Manifest builder version to bump for the manifest, normally the same as tla_ver', defaultValue: '1.0-2')
         string(name: 'build_num', description: 'Build number to bump for the manifest', defaultValue: '2')
         string(name: 'product_branch', description: 'Branch of product_config repo to bump manifest version', defaultValue: 'master')
