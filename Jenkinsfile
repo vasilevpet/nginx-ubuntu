@@ -9,7 +9,7 @@ def new_build
 
 pipeline {
     options {
-        ansiColor('vga')
+        ansiColor('xterm')
         timestamps()
         buildDiscarder(logRotator(numToKeepStr: '2'))
     }
@@ -43,6 +43,7 @@ pipeline {
                         release = sh(returnStdout: true, script: "awk -F: '/release/ {print \$2}' package.yml").trim()
                         app_version = sh(returnStdout: true, script: "awk -F: '/application_version/ {print \$2}' package.yml").trim()
                         build = sh(returnStdout: true, script: "awk -F: '/build/ {print \$2}' package.yml").trim()
+                        echo "$release $app_version $build"
                     }    
                 }
             }
