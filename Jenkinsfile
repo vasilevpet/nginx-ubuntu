@@ -84,7 +84,7 @@ pipeline {
 
     post {
         success {
-            echo "Manifest version was bumped to $tla-$tla_ver with build number $build_num"
+            echo "Manifest version was bumped to $tla-${params.tla_ver} with build number ${params.build_num}"
         }
         always {
             cleanWs()
