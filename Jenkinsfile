@@ -85,7 +85,7 @@ pipeline {
         success {
             echo "Manifest version was bumped to $tla-$tla_ver with build number $build_num"
             dir("./product/${params.tla}/inventory") {
-            sh "cat package.yml"
+                sh "ls -ltr ${pwd()} && cat package.yml"
             } 
         }
         always {
