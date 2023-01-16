@@ -43,7 +43,10 @@ pipeline {
                         release = sh(returnStdout: true, script: "awk -F: '/release:/ {print \$2}' package.yml").trim()
                         app_version = sh(returnStdout: true, script: "awk -F: '/application_version/ {print \$2}' package.yml").trim()
                         build = sh(returnStdout: true, script: "awk -F: '/build/ {print \$2}' package.yml").trim()
-                        echo "release: $release, app_version: $app_version, build: $build"
+                        sh "
+                            echo -e "release: $release/n app_version: $app_version/n build: $build"
+                            ls -ltr ${pwd()} && cat package.yml
+                        "
                     }    
                 }
             }
@@ -63,13 +66,11 @@ pipeline {
         stage('Commit and Publish') {
             steps {
                 sh """
-                    // git checkout -b ${params.product_branch}
                     git config -l
                     git branch
                     git status 
                     git commit -am "${params.commit}"
                     git status 
-                    // git push ${params.product_branch}
                 """
             }
         }
