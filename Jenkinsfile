@@ -69,6 +69,7 @@ pipeline {
                 sh """
                     git config --global user.email "jenkins@example.com"
                     git config --global user.name "jenkins"
+                    git config -l
                     git checkout -b ${params.product_branch}
                     git branch
                     git status 
